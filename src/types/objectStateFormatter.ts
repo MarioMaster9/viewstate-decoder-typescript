@@ -296,7 +296,7 @@ class ObjectStateFormatter {
 
     DeserializeType(reader: BytesHandle) {
         let token = reader.ReadByte();
-        assert((token == Token.TypeRef) || (token == Token.TypeRefAdd) || (token == Token.TypeRefAddLocal));
+        console.assert((token == Token.TypeRef) || (token == Token.TypeRefAdd) || (token == Token.TypeRefAddLocal));
 
         if (token == Token.TypeRef) {
             // reference by index into type table
