@@ -1,5 +1,9 @@
 import { HTMLWriter } from "./htmlWriter"
 import { BytesHandle } from "./bytesReader";
+import { BinaryFormatter } from "./binaryFormatter";
+import { Unit } from "./unit";
+import { Pair } from "./pair";
+import { Triplet } from "./triplet";
 
 enum Token {
     Int16 = 1,
@@ -526,7 +530,7 @@ class ObjectStateFormatter {
                     // CUSTOM (not part of azurewebsites deserializer this project is based on)
                     let length = reader.ReadEncodedInt32();
 
-                    let buffer = new Array(length);
+                    let buffer = new Array<number>(length);
                     for (let i = 0; i < length; i++) {
                         buffer[i] = reader.ReadByte();
                     }
