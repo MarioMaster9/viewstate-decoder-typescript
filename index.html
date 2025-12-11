@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>ViewState Decoder</title>
+        <script src="src/decoder.js" type="module"></script>
+        <style>
+            li {list-style-position: outside;}
+        </style>
+    </head>
+    <body>
+        <div style="margin-top:0em;">
+            <div>
+                Enter base64-encoded ViewState:<br />
+                <textarea name="viewStateInput" rows="2" cols="20" id="viewStateInput" style="height:152px;width:555px;"></textarea>
+                <button name="DecodeButton" type="button" id="DecodeButton" onclick="decode()">Submit</button>
+            </div>
+            <div id="result"></div>
+        </div>
+    </body>
+</html>

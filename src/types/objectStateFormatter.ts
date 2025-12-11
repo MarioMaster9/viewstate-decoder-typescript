@@ -585,3 +585,5 @@ class ObjectStateFormatter {
         }
     }
 }
+
+export {ObjectStateFormatter}
