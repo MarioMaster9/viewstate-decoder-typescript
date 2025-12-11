@@ -242,6 +242,12 @@ const knownColors = [
     "MenuHighlight"
 ]
 
+function byteToHex(value: number) {
+    return value.toString(16).padStart(2, '0').toUpperCase();
+}
+function shortToHex(value: number) {
+    return value.toString(16).padStart(4, '0').toUpperCase();
+}
 
 class ObjectStateFormatter {
     stringTable: string[];
