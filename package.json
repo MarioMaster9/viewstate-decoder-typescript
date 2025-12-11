@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "dependencies": {
     "http-server": "^14.1.1",
     "rollup": "^4.53.3",

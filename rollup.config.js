@@ -1,6 +1,7 @@
 export default {
-    entry: 'src/decoder.js',
-    dest: 'build/js/main.min.js',
-    format: 'iife',
-    sourceMap: 'inline',
+    input: 'src/decoder.js',
+    output: {
+        file: 'build/js/main.min.js',
+        format: 'iife'
+    },
 };
