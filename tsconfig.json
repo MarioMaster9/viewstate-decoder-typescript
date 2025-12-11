@@ -5,7 +5,6 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "outFile": "built/project.js",
   },
   "include": ["src/**/*"]
 }
