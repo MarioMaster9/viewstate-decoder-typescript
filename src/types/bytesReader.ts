@@ -1,11 +1,14 @@
 class BytesHandle {
+  pos: number;
+  data: ArrayBuffer;
   constructor(data: ArrayBuffer) {
     this.pos = 0;
     this.data = data;
   }
   
-  ReadByte() {
-    return this.data[this.pos++];
+  ReadByte(): number {
+    let uint8Representation = new Uint8Array(this.data);
+    return uint8Representation[this.pos++];
   }
 
   ReadChar() {
@@ -78,7 +81,7 @@ class BytesHandle {
   }
 
   AtEnd() {
-    return this.pos >= this.data.length;
+    return this.pos >= this.data.byteLength;
   }
 
   ReadFloat() {
@@ -115,3 +118,4 @@ class BytesHandle {
     return view.getFloat64(0);
   }
 }
+export {BytesHandle}
