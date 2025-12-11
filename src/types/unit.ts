@@ -1,5 +1,7 @@
 class Unit {
-  constructor(value, _type) {
+  constructor(value: number, _type: number) {
     
   }
 }
+
+export {Unit}
