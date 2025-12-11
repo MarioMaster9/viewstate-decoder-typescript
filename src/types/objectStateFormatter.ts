@@ -400,7 +400,7 @@ class ObjectStateFormatter {
                 }
             case Token.DateTime:
                 {
-                    let value = DateTime.FromBinary(reader.ReadInt64());
+                    let value = reader.ReadInt64();//DateTime.FromBinary(reader.ReadInt64());
                     //TODO: output datetime to the html
                     return value;
                 }
