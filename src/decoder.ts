@@ -17,3 +17,5 @@ function decode() {
     let data = base64ToArrayBuffer(base64data);
     formatter.Deserialize(data.buffer);
 }
+
+export {decode}
