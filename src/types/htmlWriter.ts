@@ -1,18 +1,16 @@
-declare global {
-    var currentContent: string;
-}
+(globalThis as any).currentContent = "";
 
 class HTMLWriter {
     static writeBeginTag(tagName: string) {
-        currentContent += `<${tagName}>`;
+        (globalThis as any).currentContent += `<${tagName}>`;
     }
 
     static writeEndTag(tagName: string) {
-        currentContent += `</${tagName}>`;
+        (globalThis as any).currentContent += `</${tagName}>`;
     }
 
     static writeContent(content: string) {
-        currentContent += content;
+        (globalThis as any).currentContent += content;
     }
 
     static writeListItem(content: string) {
@@ -30,8 +28,8 @@ class HTMLWriter {
     }
 
     static pop() {
-        document.getElementById("result").innerHTML = currentContent;
-        currentContent = "";
+        document.getElementById("result").innerHTML = (globalThis as any).currentContent;
+        (globalThis as any).currentContent = "";
     }
 
     

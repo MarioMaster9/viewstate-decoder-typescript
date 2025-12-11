@@ -18,4 +18,9 @@ function decode() {
     formatter.Deserialize(data.buffer);
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById("DecodeButton").onclick = decode;
+}, false);
+
+
 export {decode}
