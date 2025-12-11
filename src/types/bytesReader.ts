@@ -1,12 +1,15 @@
 class BytesHandle {
   pos: number;
-  data: ArrayBuffer;
-  constructor(data: ArrayBuffer) {
+  data: ArrayBuffer | Array<number>;
+  constructor(data: ArrayBuffer | Array<number>) {
     this.pos = 0;
     this.data = data;
   }
   
   ReadByte(): number {
+    if (this.data instanceof Array) {
+      return this.data[this.pos++];
+    }
     let uint8Representation = new Uint8Array(this.data);
     return uint8Representation[this.pos++];
   }
@@ -81,7 +84,11 @@ class BytesHandle {
   }
 
   AtEnd() {
-    return this.pos >= this.data.byteLength;
+    if (this.data instanceof ArrayBuffer) {
+      return this.pos >= this.data.byteLength;
+    } else {
+      return this.pos >= this.data.length;
+    }
   }
 
   ReadFloat() {
