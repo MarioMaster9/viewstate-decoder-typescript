@@ -315,13 +315,6 @@ class ObjectStateFormatter {
                 return;    //TODO: Color
             case Token.KnownColor:
                 {
-                    /*let knownColor = reader.ReadEncodedInt32();
-
-                    let colorName = knownColor.toString();
-                    if (knownColor < knownColors.length && knownColor >= 0) {
-                        colorName = knownColors[knownColor];
-                    }*/
-
                     let value = Color.FromKnownColor(reader.ReadEncodedInt32());
 
                     HTMLWriter.writeListItem(`Color: ${value}`);
