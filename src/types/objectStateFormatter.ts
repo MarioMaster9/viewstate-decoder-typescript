@@ -310,6 +310,14 @@ class ObjectStateFormatter {
 
                     return array;
                 }
+            case Token.IntEnum:
+                {
+                    let enumType = this.DeserializeType(reader);
+                    let enumValue = reader.ReadEncodedInt32();
+
+                    HTMLWriter.writeListItem(`Enum: ${enumType}, val = ${enumValue}`);
+                    return null;//TODO: add enum conversion (may not actually add because its C# stuff)
+                }
             case Token.Color:
                 {
                     let value = Color.FromArgb(reader.ReadInt32());
