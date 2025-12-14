@@ -272,6 +272,12 @@ class ObjectStateFormatter {
 
                     return table;
                 }
+            case Token.Type:
+                {
+                    let value = this.DeserializeType(reader);
+                    HTMLWriter.writeListItem(`Type: ${value}`);
+                    return value;
+                }
             case Token.StringArray:
                 {
                     let count = reader.ReadEncodedInt32();
