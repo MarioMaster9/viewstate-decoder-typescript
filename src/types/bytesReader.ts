@@ -41,10 +41,10 @@ class BytesHandle {
         return this.Read7BitEncodedInt();
     }
 
-    ReadInt64() {
-        let value = 0;
-        for (let i = 0; i < 8; i++) {
-            value |= this.ReadByte() << (i * 8);
+    ReadInt64(): bigint {
+        let value = 0n;
+        for (let i = 0n; i < 8n; i++) {
+            value |= BigInt(this.ReadByte()) << (i * 8n);
         }
         return value;
     }
