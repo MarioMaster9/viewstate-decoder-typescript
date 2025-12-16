@@ -1,6 +1,6 @@
 import { LocalizationList } from "../localization";
+import { DateTimeFormat } from "./dateTimeFormat";
 
-export {LocalizationList} from "../localization"
 // ==++==
 //
 //   Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -404,7 +404,11 @@ class DateTime {
         return new DateTime(dateData);
     }
 
-    private GetDatePart(): [number, number, number] {
+    private GetDatePart(part: number): number;
+    private GetDatePart():  [number, number, number];
+
+    private GetDatePart(part?: number): [number, number, number] | number {
+        const shouldReturnPart = part != null;
         let ticks: bigint = this.InternalTicks;
         // n = number of days since 1/1/0001
         let n: number = Number((ticks / TicksPerDay)) | 0;
@@ -428,9 +432,19 @@ class DateTime {
         if (y1 == 4) y1 = 3;
         // compute year
         let year: number = y400 * 400 + y100 * 100 + y4 * 4 + y1 + 1;
+        if (shouldReturnPart) {
+            if(part == DatePartYear) {
+                return year;
+            }
+        }
         // n = day number within year
         n -= y1 * DaysPerYear;
         // dayOfYear = n + 1;
+        if (shouldReturnPart) {
+            if(part == DatePartDayOfYear) {
+                return n + 1;
+            }
+        }
         // Leap year calculation looks different from IsLeapYear since y1, y4,
         // and y100 are relative to year 1, not year 0
         let leapYear: boolean = y1 == 3 && (y4 != 24 || y100 == 3);
@@ -442,10 +456,88 @@ class DateTime {
         while (n >= days[m]) m++;
         // compute month and day
         let month: number = m;
+        if (shouldReturnPart) {
+            if(part == DatePartMonth) {
+                return month;
+            }
+        }
         let day: number = n - days[m - 1] + 1;
-        return [year, month, day];
+        if (shouldReturnPart) {
+            return day;
+        } else {
+            return [year, month, day];
+        }
     }
 
+    // Returns the day-of-month part of this DateTime. The returned
+    // value is an integer between 1 and 31.
+    //
+    public get Day(): number {
+        return this.GetDatePart(DatePartDay);
+    }
+
+    // Returns the day-of-week part of this DateTime. The returned value
+    // is an integer between 0 and 6, where 0 indicates Sunday, 1 indicates
+    // Monday, 2 indicates Tuesday, 3 indicates Wednesday, 4 indicates
+    // Thursday, 5 indicates Friday, and 6 indicates Saturday.
+    //
+    public get DayOfWeek(): number {
+        return Number((this.InternalTicks / TicksPerDay + 1n) % 7n);
+    }
+
+    // Returns the day-of-year part of this DateTime. The returned value
+    // is an integer between 1 and 366.
+    //
+    public get DayOfYear(): number {
+        return this.GetDatePart(DatePartDayOfYear);
+    }
+
+    // Returns the hour part of this DateTime. The returned value is an
+    // integer between 0 and 23.
+    //
+    public get Hour(): number {
+        return Number((this.InternalTicks / TicksPerHour) % 24n);
+    }
+
+    private IsAmbiguousDaylightSavingTime(): boolean {
+        return (this.InternalKind == KindLocalAmbiguousDst);
+    }
+
+
+    // Returns the millisecond part of this DateTime. The returned value
+    // is an integer between 0 and 999.
+    //
+    public get Millisecond(): number {
+        return Number((this.InternalTicks/ TicksPerMillisecond) % 1000n);
+    }
+
+    // Returns the minute part of this DateTime. The returned value is
+    // an integer between 0 and 59.
+    //
+    public get Minute(): number {
+        return Number((this.InternalTicks / TicksPerMinute) % 60n);
+    }
+
+    // Returns the month part of this DateTime. The returned value is an
+    // integer between 1 and 12.
+    //
+    public get Month(): number {
+        return this.GetDatePart(DatePartMonth);
+    }
+
+    // Returns a DateTime representing the current date and time. The
+    // resolution of the returned value depends on the system timer. For
+    // Windows NT 3.5 and later the timer resolution is approximately 10ms,
+    // for Windows NT 3.1 it is approximately 16ms, and for Windows 95 and 98
+    // it is approximately 55ms.
+    //
+    public static get Now(): DateTime {
+        return new DateTime(0n); //TODO: implement
+    }
+
+    public static get UtcNow(): DateTime {
+        return new DateTime(0n); //TODO: implement
+    }
     private static IsValidTimeWithLeapSeconds(year: number, month: number, day: number, hour: number, minute: number, second: number, kind: DateTimeKind) {
         //TODO: implement
         return false;
@@ -466,11 +558,27 @@ class DateTime {
         return this.InternalTicks;
     }
 
-    //TimeOfDay
+    // Returns the time-of-day part of this DateTime. The returned value
+    // is a TimeSpan that indicates the time elapsed since midnight.
+    //
+    public get TimeOfDay(): any {
+        return null; //TODO: implement
+    }
 
-    //Today
+    // Returns a DateTime representing the current date. The date part
+    // of the returned value is the current date, and the time-of-day part of
+    // the returned value is zero (midnight).
+    //
+    public static get Today(): DateTime {
+        return new DateTime(0n); //TODO: implement
+    }
 
-    //Year
+    // Returns the year part of this DateTime. The returned value is an
+    // integer between 1 and 9999.
+    //
+    public get Year(): number {
+        return this.GetDatePart(DatePartYear);
+    }
 
     // Checks whether a given year is a leap year. This method returns true if
     // year is a leap year, or false if not.
@@ -479,6 +587,10 @@ class DateTime {
         if (year < 1 || year > 9999)
             throw new RangeError(LocalizationList.ArgumentOutOfRange_Year);
         return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+    }
+
+    toString(): string {
+        return DateTimeFormat.Format(this);
     }
 
 

@@ -6,7 +6,6 @@ import { Pair } from "./pair";
 import { Triplet } from "./triplet";
 import { Color } from "./color"
 import { DateTime } from "./datetime";
-
 enum Token {
     Int16 = 1,
     Int32,
@@ -225,8 +224,8 @@ class ObjectStateFormatter {
                 }
             case Token.DateTime:
                 {
-                    let value = DateTime.FromBinary(reader.ReadInt64());
-                    HTMLWriter.writeListItem(`DateTime: '${value}'`);
+                    let value: DateTime = DateTime.FromBinary(reader.ReadInt64());
+                    HTMLWriter.writeListItem(`DateTime: ${value}`);
                     return value;
                 }
             case Token.Double:
