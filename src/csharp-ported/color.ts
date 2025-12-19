@@ -1,4 +1,4 @@
-import { KnownColor } from './knownColor';
+import { KnownColor } from '../csharp-ported/knownColor';
 
 function getKeyByValue(object: any, value: any) {
   return Object.keys(object).find(key => object[key] === value);

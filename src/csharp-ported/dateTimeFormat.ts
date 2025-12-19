@@ -1,4 +1,4 @@
-import { DateTime } from "./datetime"
+import { DateTime } from "../csharp-ported/datetime"
 const zeroPad = (num: number, places: number) => String(num).padStart(places, '0');
 class DateTimeFormat {
     public static Format(dateTime: DateTime, format?: string) {

@@ -1,11 +1,11 @@
 import { HTMLWriter } from "./htmlWriter"
 import { BytesHandle } from "./bytesReader";
 import { BinaryFormatter } from "./binaryFormatter";
-import { Unit } from "./unit";
-import { Pair } from "./pair";
-import { Triplet } from "./triplet";
-import { Color } from "./color"
-import { DateTime } from "./datetime";
+import { Unit } from "../csharp-ported/unit";
+import { Pair } from "../csharp-ported/pair";
+import { Triplet } from "../csharp-ported/triplet";
+import { Color } from "../csharp-ported/color"
+import { DateTime } from "../csharp-ported/datetime";
 enum Token {
     Int16 = 1,
     Int32,

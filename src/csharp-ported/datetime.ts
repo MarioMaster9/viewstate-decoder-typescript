@@ -1,5 +1,5 @@
 import { LocalizationList } from "../localization";
-import { DateTimeFormat } from "./dateTimeFormat";
+import { DateTimeFormat } from "../csharp-ported/dateTimeFormat";
 
 // ==++==
 //
